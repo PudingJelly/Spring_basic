@@ -10,7 +10,9 @@
 
 	<h2>Model 객체에 대해 알아보기</h2>
 	
-	<a href="/basic/response/test?age=30">테스트1 페이지로</a>
+	<a href="/basic/response/test?age=30">테스트1 페이지로~</a>
+	
+	<a href="/basic/response/test3">테스트3 페이지로~</a>
 	
 	<hr>
 	
@@ -19,6 +21,8 @@
 		<input type="text" name="userName"> <br>
 		<input type="submit" value="확인">
 	</form>
+	
+	
 
 </body>
 </html>
