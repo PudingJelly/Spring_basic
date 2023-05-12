@@ -20,11 +20,18 @@
 			수학: ${stu.math} <br>
 			총점: ${stu.total} <br>
 			평균: ${stu.average}
-			<a href="">[삭제]</a>
+			<a href="<c:url value='/score/delete?stuId=${stu.stuId}' />">[삭제]</a>
 		</p>
 	</c:forEach>
 	
 	<a href="<c:url value='/score/register' />">다른 점수 등록하기</a>
-
+	
+	<script>
+		const msg = '${msg}';
+		if(msg === 'delSuccess') {
+			alert('삭제가 완료 되었습니다.');
+		}
+	</script>
+	
 </body>
 </html>
