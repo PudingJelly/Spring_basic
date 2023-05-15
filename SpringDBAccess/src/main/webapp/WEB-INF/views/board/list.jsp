@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>    
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
-   
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>   
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,8 +16,8 @@
             <th>번호</th>
             <th>제목</th>
             <th>작성자</th>
+            <th>작성일시</th>
             <th>비고</th>
-            <th>작성시간</th>
         </tr>
         
         <c:forEach var="article" items="${articles}">
@@ -28,10 +28,12 @@
                 </td>
                 <td>${article.writer}</td>
                 <td>
-                    <a href="<c:url value='/board/delete?boardNo=${article.boardNo}' />">[삭제]</a>                    
+                	<fmt:parseDate value="${article.regDate}" pattern="yyyy-MM-dd'T'HH:mm:ss" var="parsedDateTime" type="both" />
+                	<fmt:formatDate value="${parsedDateTime}" pattern="yyyy년 MM월 dd일 HH시 mm분" />
+                	
                 </td>
                 <td>
-                	${article.regDate}
+                    <a href="<c:url value='/board/delete?boardNo=${article.boardNo}' />">[삭제]</a>                    
                 </td>
             </tr>
         </c:forEach>

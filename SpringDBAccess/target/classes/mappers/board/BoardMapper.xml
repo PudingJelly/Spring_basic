@@ -7,8 +7,8 @@
 
 <!-- DB 컬럼명과 VO의 필드명을 등록하는 ResultMap 선언 -->
 	<resultMap type="com.spring.db.model.BoardVO" id="boardMap">
-		<id property="boardNo" column="board_no"/>
-		<result property="regDate" column="reg_date"/>
+		<id property="boardNo" column="board_no" />
+		<result property="regDate" column="reg_date" />
 	</resultMap>
 
 
@@ -32,7 +32,8 @@
 	
 	<!-- 게시글 삭제 -->
 	<delete id="deleteArticle">
-		DELETE FROM jdbc_board WHERE board_no = #{bno}
+		DELETE FROM jdbc_board 
+		WHERE board_no = #{bno}
 	</delete>
 	
 	<!-- 게시글 수정 -->
