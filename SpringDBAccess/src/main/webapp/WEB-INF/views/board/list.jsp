@@ -17,6 +17,7 @@
             <th>제목</th>
             <th>작성자</th>
             <th>비고</th>
+            <th>작성시간</th>
         </tr>
         
         <c:forEach var="article" items="${articles}">
@@ -27,7 +28,10 @@
                 </td>
                 <td>${article.writer}</td>
                 <td>
-                    <a href="<c:url value='board/delete?boardNo=${article.boardNo}' />">[삭제]</a>
+                    <a href="<c:url value='/board/delete?boardNo=${article.boardNo}' />">[삭제]</a>                    
+                </td>
+                <td>
+                	${article.regDate}
                 </td>
             </tr>
         </c:forEach>
