@@ -9,7 +9,7 @@
 <body>
 
 	<h2>게시글 등록</h2>
-    <form method="post">
+    <form method="post"> <!-- /board/write를 url로 사용 -->
         <p>
             # 작성자: <input type="text" name="writer"> <br>
             # 제목: <input type="text" name="title"> <br>
