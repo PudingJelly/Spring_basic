@@ -90,8 +90,8 @@ public class FreeBoardMapperTest {
 		int bno = 1;
 		FreeBoardVO vo = new FreeBoardVO();
 		vo.setBno(bno);
-		vo.setTitle("1번글 수정");
-		vo.setContent("1번글 수정이요");
+		vo.setTitle("1번글 재수정");
+		vo.setContent("1번글 재수정함");
 		
 		// when
 		mapper.update(vo);
@@ -113,8 +113,7 @@ public class FreeBoardMapperTest {
 		
 		//then
 		assertEquals(1, mapper.getList().size());
-		assertNull(mapper.getContent(bno));
-		
+		assertNull(mapper.getContent(bno));		
 		
 	}
 }
