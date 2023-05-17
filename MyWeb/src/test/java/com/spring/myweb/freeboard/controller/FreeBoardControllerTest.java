@@ -16,7 +16,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.spring.myweb.FreeBoardController;
+import com.spring.myweb.controller.FreeBoardController;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(locations = {
@@ -68,7 +68,7 @@ public class FreeBoardControllerTest {
 	@Test
 	@DisplayName("게시글 등록 요청 처리 과정 테스트")
 	void testInsert() throws Exception {
-		String viewPage = mockMvc.perform(MockMvcRequestBuilders.post("/freeboard/freeRegist")
+		String viewPage = mockMvc.perform(MockMvcRequestBuilders.post("/freeboard/regist")
 				.param("title", "테스트 새 글 목록")
 				.param("content", "테스트 새 글 내용")
 				.param("writer","user01"))

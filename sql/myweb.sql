@@ -29,6 +29,8 @@ create table freeboard(
     update_date datetime default null
 );
 
+select * from freeboard;
+
 
 
 
