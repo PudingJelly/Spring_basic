@@ -55,7 +55,9 @@ public class FreeBoardController {
 	 {}안에 변수명을 지어주고, @PathVariable 괄호 안에 영역을 지목해서 값을 받아옵니다. 
 	 */
 	@GetMapping("/content/{bno}")
-	public String getContent(@PathVariable int bno, Model model) {
+	public String getContent(@PathVariable int bno,	@ModelAttribute("p") PageVO vo, 
+							Model model) {
+		System.out.println("contentPage: " + vo);
 		model.addAttribute("article", service.getContent(bno));
 		return "freeboard/freeDetail";		
 	}

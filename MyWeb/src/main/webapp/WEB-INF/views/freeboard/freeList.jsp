@@ -17,15 +17,15 @@
 				<hr>
 
 				<!--form select를 가져온다 -->
-				<form>
+				<form action="<c:url value='/freeboard/freeList' />">
 					<div class="search-wrap">
-						<button type="button" class="btn btn-info search-btn">검색</button>
-						<input type="text" class="form-control search-input"> <select
-							class="form-control search-select">
-							<option>제목</option>
-							<option>내용</option>
-							<option>작성자</option>
-							<option>제목+내용</option>
+						<button type="submit" class="btn btn-info search-btn">검색</button>
+						<input type="text" name="keyword" class="form-control search-input"> 
+						<select name="condition" class="form-control search-select">
+							<option value="title">제목</option>
+							<option value="content">내용</option>
+							<option value="writer">작성자</option>
+							<option value="titleContent">제목+내용</option>
 						</select>
 					</div>
 				</form>
@@ -45,7 +45,7 @@
 							<tr>
 								<td>${vo.bno}</td>
 								<td>
-									<a href="${pageContext.request.contextPath}/freeboard/content/${vo.bno}">${vo.title}</a>
+									<a href="${pageContext.request.contextPath}/freeboard/content/${vo.bno}?pageNum=${pc.paging.pageNum}&cpp=${pc.paging.cpp}">${vo.title}</a>
 								</td>
 								<td>${vo.writer}</td>
 								<td>

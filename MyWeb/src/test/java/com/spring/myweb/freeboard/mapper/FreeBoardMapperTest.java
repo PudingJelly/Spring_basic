@@ -119,7 +119,7 @@ public class FreeBoardMapperTest {
 		mapper.delete(bno);
 		
 		//then
-//		assertEquals(1, mapper.getList().size());
+
 		assertNull(mapper.getContent(bno));		
 		
 	}
