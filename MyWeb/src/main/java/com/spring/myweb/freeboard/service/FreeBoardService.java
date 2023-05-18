@@ -14,7 +14,7 @@ public class FreeBoardService implements IFreeBoardService {
 
 	@Autowired
 	private IFreeBoardMapper mapper;
-	
+
 	@Override
 	public void regist(FreeBoardVO vo) {
 		mapper.regist(vo);
@@ -24,7 +24,7 @@ public class FreeBoardService implements IFreeBoardService {
 	public List<FreeBoardVO> getList(PageVO vo) {
 		return mapper.getList(vo);
 	}
-	
+
 	@Override
 	public int getTotal(PageVO vo) {
 		return mapper.getTotal(vo);

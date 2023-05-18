@@ -2,8 +2,6 @@ package com.spring.myweb.command;
 
 import java.time.LocalDateTime;
 
-import org.springframework.stereotype.Service;
-
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -19,8 +17,8 @@ import lombok.ToString;
 );
  */
 
-@Getter 
-@Setter 
+@Getter
+@Setter
 @ToString
 public class FreeBoardVO {
 
@@ -30,5 +28,5 @@ public class FreeBoardVO {
 	private String content;
 	private LocalDateTime regDate;
 	private LocalDateTime updateDate;
-	
+
 }

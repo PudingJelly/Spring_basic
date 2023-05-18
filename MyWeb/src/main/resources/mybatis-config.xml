@@ -14,17 +14,19 @@
 		<setting name="jdbcTypeForNull" value="NULL"/>
 		
 		<!-- 데이터베이스로부터의 응답을 얼마나 오래 기다리게 할 지를 판단하는 타임아웃 설정(밀리초) -->
-		<setting name="defaultStatementTimeout" value="3000"/>
+		<setting name="defaultStatementTimeout" value="100000"/>
 		
 		<!-- 언더스코어 표기법을 카멜 케이스로 자동 변환하는 설정을 true로 지정. -->
 		<setting name="mapUnderscoreToCamelCase" value="true"/>
 		
 	</settings>
 	
+	 
 	<typeAliases>
-		<typeAlias type="com.spring.myweb.command.FreeBoardVO" alias="board"/>
+		<typeAlias type="com.spring.myweb.command.FreeBoardVO" alias="board"/>	
 		<typeAlias type="com.spring.myweb.command.UserVO" alias="user"/>
 	</typeAliases>
+	
 	
 	<!-- 
 		인터페이스 mapper 구현체 xml 파일의 경로를 표시하는 태그.

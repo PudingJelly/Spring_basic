@@ -38,5 +38,5 @@ public class UserVO {
 	private String addrDetail;
 	private String addrZipNum;
 	private LocalDateTime regDate;
-	
+
 }
