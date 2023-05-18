@@ -43,6 +43,7 @@ public class UserController {
 	public String mailCheck(String email) {
 		log.info("이메일 인증 요청 들어옴: " + email);
 
+		return null;
 	}
 
 
