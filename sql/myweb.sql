@@ -31,6 +31,36 @@ create table freeboard(
 
 select * from freeboard;
 
+select count(*) from freeboard;
+
+select * from freeboard
+order by bno desc
+limit 30, 10;
+# (page-1) * cpp
+
+create table users (
+	user_id varchar(50) primary key,
+    user_pw varchar(50) not null,
+    user_name varchar(50) not null,
+    user_phone1 varchar(50),
+    user_phone2 varchar(50),
+    user_email1 varchar(50),
+    user_email2 varchar(50),
+    addr_basic varchar(300),
+    addr_detail varchar(300),
+    addr_zip_num varchar(50),
+    reg_date datetime default current_timestamp
+);
+
+drop table users;
+
+
+
+
+
+
+
+
 
 
 

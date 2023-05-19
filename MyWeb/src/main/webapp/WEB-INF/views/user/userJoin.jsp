@@ -8,13 +8,14 @@
 		<div class="row">
 			<div class="col-lg-6 col-md-9 col-sm-12 join-form">
 				<div class="titlebox">회원가입</div>
-				<form action="">
+				<form action="${pageContext.request.contextPath}/user/join" method="post" name="joinForm">
 					<div class="form-group">
 						<!--사용자클래스선언-->
 						<label for="id">아이디</label>S
 						<div class="input-group">
 							<!--input2탭의 input-addon을 가져온다 -->
-							<input type="text" class="form-control" id="userId" placeholder="아이디를 (영문포함 4~12자 이상)">
+							<input type="text" name="userId" class="form-control" id="userId" 
+								placeholder="아이디를 (영문포함 4~12자 이상)">
 							<div class="input-group-addon">
 								<button type="button" class="btn btn-primary" id="idCheckBtn">아이디중복체크</button>
 							</div>
@@ -24,37 +25,41 @@
 					</div>
 					<div class="form-group">
 						<!--기본 폼그룹을 가져온다-->
-						<label for="password">비밀번호</label> <input type="password" class="form-control" id="userPw"
-							placeholder="비밀번호 (영 대/소문자, 숫자 조합 8~16자 이상)"> <span id="msgPw"></span>
+						<label for="password">비밀번호</label> 
+						<input type="password" name="userPw" class="form-control" id="userPw" 
+							placeholder="비밀번호 (영 대/소문자, 숫자 조합 8~16자 이상)"> 
+						<span id="msgPw"></span>
 						<!--자바스크립트에서 추가-->
 					</div>
 					<div class="form-group">
-						<label for="password-confrim">비밀번호 확인</label> <input type="password" class="form-control"
-							id="pwConfirm" placeholder="비밀번호를 확인해주세요."> <span id="msgPw-c"></span>
+						<label for="password-confrim">비밀번호 확인</label> 
+						<input type="password" class="form-control" id="pwConfirm" placeholder="비밀번호를 확인해주세요."> 
+							<span id="msgPw-c"></span>
 						<!--자바스크립트에서 추가-->
 					</div>
 					<div class="form-group">
-						<label for="name">이름</label> <input type="text" class="form-control" id="userName"
-							placeholder="이름을 입력하세요.">
+						<label for="name">이름</label> 
+						<input type="text" name="userName" class="form-control" id="userName" placeholder="이름을 입력하세요.">
 					</div>
 					<!--input2탭의 input-addon을 가져온다 -->
 					<div class="form-group">
 						<label for="hp">휴대폰번호</label>
 						<div class="input-group">
-							<select class="form-control phone1" id="userPhone1">
+							<select name="userPhone1" class="form-control phone1" id="userPhone1">
 								<option>010</option>
 								<option>011</option>
 								<option>017</option>
 								<option>018</option>
-							</select> <input type="text" class="form-control phone2" id="userPhone2"
+							</select> 
+							<input name="userPhone2" type="text" class="form-control phone2" id="userPhone2" 
 								placeholder="휴대폰번호를 입력하세요.">
 						</div>
 					</div>
 					<div class="form-group email-form">
 						<label for="email">이메일</label><br>
 						<div class="input-group">
-							<input type="text" class="form-control" id="userEmail1" placeholder="이메일"> <select
-								class="form-control" id="userEmail2">
+							<input name="userEmail1" type="text" class="form-control" id="userEmail1" placeholder="이메일"> 
+							<select name="userEmail2" class="form-control" id="userEmail2">
 								<option>@naver.com</option>
 								<option>@daum.net</option>
 								<option>@gmail.com</option>
@@ -77,26 +82,26 @@
 					<div class="form-group">
 						<label for="addr-num">주소</label>
 						<div class="input-group">
-							<input type="text" class="form-control" id="addrZipNum" placeholder="우편번호" readonly>
+							<input type="text" name="addrZipNum" class="form-control" id="addrZipNum" placeholder="우편번호" readonly>
 							<div class="input-group-addon">
 								<button type="button" class="btn btn-primary" onclick="searchAddress()">주소찾기</button>
 							</div>
 						</div>
 					</div>
 					<div class="form-group">
-						<input type="text" class="form-control" id="addrBasic" placeholder="기본주소">
+						<input type="text" name="addrBasic" class="form-control" id="addrBasic" placeholder="기본주소">
 					</div>
 					<div class="form-group">
-						<input type="text" class="form-control" id="addrDetail" placeholder="상세주소">
+						<input type="text" name="addrDetail" class="form-control" id="addrDetail" placeholder="상세주소">
 					</div>
 
 					<!--button탭에 들어가서 버튼종류를 확인한다-->
 					<div class="form-group">
-						<button type="button" class="btn btn-lg btn-success btn-block">회원가입</button>
+						<button type="button" id="joinBtn" class="btn btn-lg btn-success btn-block">회원가입</button>
 					</div>
 
 					<div class="form-group">
-						<button type="button" class="btn btn-lg btn-info btn-block">로그인</button>
+						<button type="button" id="loginBtn" class="btn btn-lg btn-info btn-block">로그인</button>
 					</div>
 				</form>
 			</div>
@@ -110,6 +115,7 @@
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
 	let code = ''; // 이메일 전송 인증번호 저장을 위한 변수
+	let idFlag, pwFlag; // 정규표현식 유효성 검사 여부 판단.
 
 	// 아이디 중복 체크
 	document.getElementById('idCheckBtn').onclick = function () {
@@ -117,6 +123,11 @@
 		const userId = document.getElementById('userId').value;
 		if (userId === '') {
 			alert('아이디는 필수값입니다.');
+			return;
+		}
+
+		if(!idFlag) {
+			alert('아이디를 제대로 입력하세요.');
 			return;
 		}
 		/*
@@ -247,6 +258,40 @@
 				document.getElementById("addrDetail").focus();
 			}
 		}).open();
+	} // 주소찾기 api 끝.
+
+	// 폼 데이터 검증(회원 가입 버튼 눌렀을 시)
+	document.getElementById('joinBtn').onclick = function() {
+
+		if(idFlag && pwFlag) {
+			if(!document.getElementById('userId').getAttribute('readonly')) {
+			alert('아이디 중복 체크는 필수 입니다.');
+			return;
+		 }
+
+		 if(document.getElementById('userPw').value 
+		 		!== document.getElementById('pwConfirm').value) {
+			alert('비밀번호 확인란을 확인하세요!');
+			return;
+		 }
+
+		 if(document.getElementById('userName').value === '') {
+			alert('이름은 필수입니다.');
+			return;
+		 }
+
+		 if(!document.getElementById('mail-check-btn').disabled) {
+			alert('이메일 인증을 완료해 주세요.');
+			return;
+		 }
+
+		 if(confirm('회원가입을 진행합니다.')) {
+			document.joinForm.submit();
+		 } else return;
+
+		} else {
+			alert('입력값을 다시 한 번 확인하세요!')
+		}
 	}
 
 
@@ -285,12 +330,14 @@
 		if (regex.test(document.getElementById("userId").value)) {
 			document.getElementById("userId").style.borderColor = "green";
 			document.getElementById("msgId").innerHTML = "아이디중복체크는 필수 입니다";
-
+			idFlag = true;
 		} else {
 			document.getElementById("userId").style.borderColor = "red";
 			document.getElementById("msgId").innerHTML = "부적합한 아이디 입니다.";
+			idFlag = false;
 		}
 	}
+
 	/*비밀번호 형식 검사 스크립트*/
 	var pw = document.getElementById("userPw");
 	pw.onkeyup = function () {
@@ -298,11 +345,14 @@
 		if (regex.test(document.getElementById("userPw").value)) {
 			document.getElementById("userPw").style.borderColor = "green";
 			document.getElementById("msgPw").innerHTML = "사용가능합니다";
+			pwFlag = true;
 		} else {
 			document.getElementById("userPw").style.borderColor = "red";
 			document.getElementById("msgPw").innerHTML = "";
+			pwFlag = false;
 		}
 	}
+
 	/*비밀번호 확인검사*/
 	var pwConfirm = document.getElementById("pwConfirm");
 	pwConfirm.onkeyup = function () {
@@ -315,4 +365,5 @@
 			document.getElementById("msgPw-c").innerHTML = "비밀번호 확인란을 확인하세요";
 		}
 	}
+
 </script>
