@@ -34,7 +34,7 @@ public class MailSenderService {
 	public String joinEmail(String email) {
 		authNum = makeRandomNumber();
 
-		String setForm = "changju7857@naver.com"; //email-config 설정한 발신용 이메일 주소 입력
+		String setForm = "nada663112@gmail.com"; //email-config 설정한 발신용 이메일 주소 입력
 		String toMail = email; //수신 받을 이메일 (가입하고자 하는 사람의 이메일)
 		String title = "회원 가입 인증 이메일 입니다."; //이메일 제목
 		String content = "홈페이지를 방문해 주셔서 감사합니다." +
@@ -53,7 +53,7 @@ public class MailSenderService {
 			MimeMessage message = mailSender.createMimeMessage();
 			//기타 설정들을 담당할 MimeMessageHelper 객체를 생성.
 			//생성자의 매개값으로는 MimeMessage 객체, bool, 문자 인코딩 설정
-			//true 매개값을 전달하면 MultiPart 형식의 메세지 전달이 가능. (첨부 파일)
+			//true 매개값을 전달하면 MultiPart 형식의 메세지 전달이 가능. (이미지, 오디오, 비디오 등 첨부파일)
 			//값을 전달하지 않는다면 단순 텍스트만 사용.
 			MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
 
@@ -67,7 +67,6 @@ public class MailSenderService {
 			mailSender.send(message);
 
 		} catch (MessagingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

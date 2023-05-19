@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.spring.myweb.user.service.IUserService;
+import com.spring.myweb.util.MailSenderService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -16,9 +17,13 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/user")
 @Slf4j
 public class UserController {
-
+	
+	// 절차 진행 후 해당 페이지에 머무를 필요가 없는 부분은 비동기 형식을 사용하지 않아도 된다	
+	
 	@Autowired
 	private IUserService service;
+	@Autowired
+	private MailSenderService mailService;
 
 	// 회원가입 페이지로 이동
 	@GetMapping("/userJoin")
@@ -42,10 +47,22 @@ public class UserController {
 	@ResponseBody
 	public String mailCheck(String email) {
 		log.info("이메일 인증 요청 들어옴: " + email);
-
-		return null;
+		return mailService.joinEmail(email);		 
 	}
-
+	
+	// 인증번호 인증
 
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
