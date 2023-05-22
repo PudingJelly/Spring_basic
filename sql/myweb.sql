@@ -55,6 +55,19 @@ create table users (
 drop table users;
 
 
+select
+	user_name, user_phone1, user_phone2,
+    user_email1, user_email2,
+    addr_basic, addr_detail, addr_zip_num,
+    f.bno,
+    f.title,
+    f.reg_date
+from users u
+left join freeboard f
+on u.user_id = f.writer
+where u.user_id = 'abc1234'
+order by f.bno desc
+limit 0, 10;
 
 
 

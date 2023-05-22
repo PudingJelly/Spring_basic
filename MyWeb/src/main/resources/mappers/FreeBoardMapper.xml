@@ -26,6 +26,12 @@
 	 	</if>
 	 </sql>
 	 
+	 <sql id="myPage">
+	 	<if test="loginId != null">
+	 		WHERE writer = #{loginId}	 		
+	 	</if>
+	 </sql>
+	 
 	
 	<insert id="regist">
 		INSERT INTO freeboard 
@@ -33,7 +39,7 @@
 		VALUES(#{title}, #{writer}, #{content})
 	</insert>
 
-	<select id="getList" resultType="com.spring.myweb.command.FreeBoardVO">
+	<select id="getList" resultType="board">
 		SELECT * FROM freeboard
 		<include refid="search" />
 		ORDER BY bno DESC
@@ -44,9 +50,10 @@
 		SELECT COUNT(*)
 		FROM freeboard
 		<include refid="search" />
+		<include refid="myPage" />
 	</select>
 	
-	<select id="getContent" resultType="com.spring.myweb.command.FreeBoardVO">
+	<select id="getContent" resultType="board">
 		SELECT * FROM freeboard
 		WHERE bno=#{bno}
 	</select>
