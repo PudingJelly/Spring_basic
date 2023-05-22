@@ -200,7 +200,7 @@
 				document.querySelector('.mail-check-input').disabled = false;
 				code = data; // 인증번호를 전역변수에 저장
 				alert('인증번호가 전송 되었습니다. 확인 후 입력란에 정확히 입력하세요.');
-			});
+			}); // 비동기 끝
 	}; // 인증번호 이벤트 끝
 
 	// 인증번호 검증
