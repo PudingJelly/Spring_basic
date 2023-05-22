@@ -54,7 +54,7 @@ create table users (
 
 drop table users;
 
-
+##마이페이지 구현을 위한 테이블 조인 및 조회
 select
 	user_name, user_phone1, user_phone2,
     user_email1, user_email2,
@@ -70,7 +70,22 @@ order by f.bno desc
 limit 0, 10;
 
 
+##댓글구현 테이블 제작
 
+create table freereply(
+	rno int primary key auto_increment,
+    bno	int,
+    
+    foreign key (bno)
+    references freeboard(bno)
+    on delete cascade, ##원본글이 지워지면 그에 달린 댓글들도 전부 지워 버리겠다.
+    
+    reply varchar(1000),
+    reply_id varchar(50),
+    reply_pw varchar(50),
+    reply_date datetime default current_timestamp,
+    update_date datetime default null
+);
 
 
 
