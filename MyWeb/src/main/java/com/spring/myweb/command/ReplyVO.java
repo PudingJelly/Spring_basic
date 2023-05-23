@@ -33,6 +33,7 @@ public class ReplyVO {
 	private String reply;
 	private String replyId;
 	private String replyPw;
+	private LocalDateTime replyDate;
 	private LocalDateTime updateDate;
 	
 }
