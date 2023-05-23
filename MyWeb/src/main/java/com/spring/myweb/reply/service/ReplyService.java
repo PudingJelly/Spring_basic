@@ -17,7 +17,7 @@ public class ReplyService implements IReplyService {
 
 	@Autowired
 	private IReplyMapper mapper;
-	
+	@Autowired
 	private BCryptPasswordEncoder encoder;
 	
 	@Override
