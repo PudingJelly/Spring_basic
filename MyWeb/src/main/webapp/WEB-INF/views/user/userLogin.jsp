@@ -57,7 +57,7 @@
         }
 
         document.getElementById('joinBtn').onclick = () => {
-            location.href='${pageContext.request.pageContext}/user/join';
+            location.href='${pageContext.request.contextPath}/user/userJoin';
         }
         
 
