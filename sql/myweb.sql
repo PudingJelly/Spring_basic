@@ -87,6 +87,9 @@ create table freereply(
     update_date datetime default null
 );
 
+update freereply
+set update_date = '2023-05-24 00:00:00'
+where rno = 2;
 
 
 
