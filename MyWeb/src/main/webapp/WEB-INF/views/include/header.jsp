@@ -30,7 +30,7 @@
                                 <span class="icon-bar"></span>
                                 <span class="icon-bar"></span>
                             </button>
-                            <a class="navbar-brand" href="#"><img width="30" src="${pageContext.request.contextPath }/img/logo.svg" alt="Brand"></a>
+                            <a class="navbar-brand" href="${pageContext.request.contextPath}/"><img width="30" src="${pageContext.request.contextPath }/img/logo.svg" alt="Brand"></a>
                         </div>
 
 
@@ -38,6 +38,7 @@
                             <ul class="nav navbar-nav">
                                 <li class="active"><a href="${pageContext.request.contextPath}/">Main</a></li>
                                 <li><a href="${pageContext.request.contextPath}/freeboard/freeList">자유게시판</a></li>
+                                <li><a href="${pageContext.request.contextPath}/snsboard/snsList">SNS</a></li>
                                 <!-- 
 				<li><a href="#">강의</a></li>
                                 <li><a href="#">Form</a></li>
