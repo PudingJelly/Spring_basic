@@ -76,7 +76,7 @@ public class SnsBoardService implements ISnsBoardService {
 
 	@Override
 	public List<SnsBoardVO> getList(PageVO paging) {
-		return null;
+		return mapper.getList(paging);
 	}
 
 	@Override

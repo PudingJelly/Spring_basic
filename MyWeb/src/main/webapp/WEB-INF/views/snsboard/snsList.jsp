@@ -233,35 +233,8 @@
 
 					<!-- 파일 업로드 폼 끝 -->
 					<div id="contentDiv">
-						<div class="title-inner">
-							<!--제목영역-->
-							<div class="profile">
-								<img src="${pageContext.request.contextPath}/img/profile.png">
-							</div>
-							<div class="title">
-								<p>테스트</p>
-								<small>21시간</small>
-							</div>
-						</div>
-						<div class="content-inner">
-							<!--내용영역-->
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vulputate elit libero,
-								quis mattis enim tincidunt non. Mauris consequat ante vel urna posuere consequat. </p>
-						</div>
-						<div class="image-inner">
-							<!-- 이미지영역 -->
-							<img src="${pageContext.request.contextPath}/img/facebook.jpg">
-
-						</div>
-						<div class="like-inner">
-							<!--좋아요-->
-							<img src="${pageContext.request.contextPath}/img/icon.jpg"> <span>522</span>
-						</div>
-						<div class="link-inner">
-							<a href="##"><i class="glyphicon glyphicon-thumbs-up"></i>좋아요</a>
-							<a href="##"><i class="glyphicon glyphicon-comment"></i>댓글달기</a>
-							<a href="##"><i class="glyphicon glyphicon-remove"></i>삭제하기</a>
-						</div>
+						<!-- 비동기 방식으로 서버와 통신을 진행한 후
+							목록을 만들어서 붙일 예정. -->
 					</div>
 				</div>
 				<!--우측 어사이드-->
@@ -321,7 +294,6 @@
 
 
 	<script>
-
 		// 글 등록하기 버튼 클릭 이벤트
 		document.getElementById("uploadBtn").onclick = () => {
 			regist();
@@ -336,9 +308,9 @@
 			console.log(userId);
 			console.log(file);
 			// .을 제거한 확장자만 얻어낸 후 그것을 소문자로 일괄 변경
-			file = file.slice(file.indexOf('.')+1).toLowerCase();
-			
-			if(file != 'jpg' && file != 'png' && file != 'jpeg' && file != 'bmp' && file != 'gif') {
+			file = file.slice(file.indexOf('.') + 1).toLowerCase();
+
+			if (file != 'jpg' && file != 'png' && file != 'jpeg' && file != 'bmp' && file != 'gif') {
 				alert('이미지 파일(jpg, png, jpeg, bmp, gif)만 등록이 가능합니다.')
 				document.getElementById('file').value = '';
 				return;
@@ -362,7 +334,7 @@
 			// 파일 첨부 버튼이 하나고, id를 지목해서 가져오기 때문에 인덱스를 쓸 필요는 없다.
 			// console.log('data[0]: ' + $data[0]);
 			console.log($data.files); // 파일 태그에 담긴 파일 정보를 확인하는 프로퍼티.
-			console.log($data.files[0]); 
+			console.log($data.files[0]);
 			// 사용자가 등록한 최종 파일의 정보
 			// 만약 우리가 여러 파일을 하나의 태그로 받을 수 있도록 multiple을 제공했다면
 			// files -> FileList에 여러 파일의 정보가 들어오게 됩니다.
@@ -377,27 +349,115 @@
 
 			// FormData 객체를 보낼 때는 따로 header 설정을 진행하지 않습니다.
 			fetch('${pageContext.request.contextPath}/snsboard/upload', {
-				method : 'post',
-				body : formData
-			})
-			.then(res => res.text())
-			.then(data => {
-				console.log(data);
-				document.getElementById('file').value = ''; // file input 비우기
-				document.getElementById('content').value = ''; // 글 영역 비우기
-				document.querySelector('.fileDiv').style.display = 'none'; // 미리보기 감추기
-				getList(1, true); // 글 목록 함수 호출
-			});
+					method: 'post',
+					body: formData
+				})
+				.then(res => res.text())
+				.then(data => {
+					console.log(data);
+					document.getElementById('file').value = ''; // file input 비우기
+					document.getElementById('content').value = ''; // 글 영역 비우기
+					document.querySelector('.fileDiv').style.display = 'none'; // 미리보기 감추기
+					getList(1, true); // 글 목록 함수 호출
+				});
 		} // 글 등록 이벤트 끝 (end regist())
 
+
+		// 리스트 작업
+		let str = '';
+		let page = 1;
+		let isFinish = false;
+		const $contentDiv = document.getElementById('contentDiv');
+		getList(1, true);
+
 		function getList(page, reset) {
+			str = '';
 			console.log('page: ' + page);
 			console.log('reset: ' + reset);
 
-			
+			// GET 요청으로 객체를 전달할 필요 없음
+			fetch('${pageContext.request.contextPath}/snsboard/' + page)
+				.then(res => res.json())
+				.then(list => {
+					console.log(list);
+					console.log(list.length);
+					if (list.length === 0) isFinish = true;
+
+					if (reset) {
+						while ($contentDiv.firstChild) {
+							$contentDiv.firstChild.remove();
+						}
+						page = 1;
+					}
+
+					for (vo of list) {
+						str +=
+							`<div class="title-inner">
+							<!--제목영역-->
+							<div class="profile">
+								<img src="${pageContext.request.contextPath}/img/profile.png">
+							</div>
+							<div class="title">
+								<p>` + vo.writer + `</p>
+								<small>` + vo.regDate + `</small>
+							</div>
+						</div>
+						<div class="content-inner">
+							<!--내용영역-->
+							<p>` + vo.content + `</p>
+						</div>
+						<div class="image-inner">
+							<!-- 이미지영역 -->
+							<img src="${pageContext.request.contextPath}/snsboard/display/` + vo.fileLoca + `/` + vo.fileName + `">
+
+						</div>
+						<div class="like-inner">
+							<!--좋아요-->
+							<img src="${pageContext.request.contextPath}/img/icon.jpg"> <span>522</span>
+						</div>
+						<div class="link-inner">
+							<a href="##"><i class="glyphicon glyphicon-comment"></i>댓글달기</a>
+							<a href="` + vo.bno + `"><i class="glyphicon glyphicon-remove"></i>삭제하기</a>
+							<a href="` + vo.bno + `"><i class="glyphicon glyphicon-thumbs-up"></i>좋아요</a>
+						</div>`
+					}
+
+					if (!reset) {
+						document.getElementById('contentDiv').insertAdjacentHTML('beforeend', str);
+					} else {
+						document.getElementById('contentDiv').insertAdjacentHTML('afterbegin', str);
+					}
+
+				}); // end fetch
+
+		} // end getList()
+
+		/*
+		무한 스크롤 페이징 
+		모든 게시판에 무한 스크롤 페이징 방식이 어울리는 것은 아닙니다.
+		사용자가 현재 위치를 알기가 힘들고, 원하는 페이지에 도달하기 위해
+		스크롤을 비효율적으로 많이 움직여야 할 수도 있습니다.
+		서비스 하는 형식에 맞는 페이징 방식을 적용하면 됩니다.
+		*/
+		window.onscroll = function () {
+			if (!isFinish) {
+				/*
+				# 공식
+				윈도우(device)의 높이와 현재 스크롤 위치 값을 더한 뒤,
+				문서(컨텐츠)의 높이와 비교해서 같아졌다면 로직을 수행.
+				문서 높이 - 브라우저 창 높이 = 스크롤 창의 끝 높이와 같다면 -> 새로운 내용 불러오기!
+				*/
+				if (window.innerHeight + window.scrollY >= document.body.scrollHeight) {
+					// 사용자의 스크롤이 바닥에 닿았을 때, 페이지 변수의 값을 하나 올리고
+					// reset 여부는 false를 주어 누적해서 게속 불러오면 됩니다.
+					// 게시글을 한 번에 몇 개씩 불러 올지는 PageVO의 cpp를 조정하면 됩니다.
+					console.log('페이징 발동!');
+					getList(++page, false);
+				}
+			} else {
+				console.log('더 이상 불러 올 목록이 없어요~!');
+			}
 		}
-
-
 
 		//자바 스크립트 파일 미리보기 기능
 		function readURL(input) {
