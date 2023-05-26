@@ -96,7 +96,7 @@
 		</dependency>
 
 		<!-- Servlet -->
-		<!-- 참조하는 서블릿 버전 3.1.0 선언 (artifactId가 달라져요) -->
+		<!-- 참조하는 서블릿 버전 3.1.0 선언 (artifactId가 달라져요 맨앞에 javax 붙여야함) -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>

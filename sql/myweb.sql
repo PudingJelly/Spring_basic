@@ -1,3 +1,6 @@
+create database spring;
+create user 'spring@localhost' identified by 'spring';
+grant all privileges on spring.* to 'spring'@'localhost';
 
 # 해당 계정이 어떤 데이터베이스를 사용할 지 명시하는 문장
 use spring;
