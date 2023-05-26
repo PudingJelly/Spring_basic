@@ -12,11 +12,24 @@
 		(#{writer}, #{uploadPath}, #{fileLoca}, #{fileName}, #{fileRealName}, #{content})
 	</insert>
 	
+	<!-- 글 목록 불러오기 -->
 	<select id="getList" resultType="sns">
 		select * from snsboard
 		order by bno desc
 		limit #{pageStart}, #{cpp}
+	</select>	
+	
+	<!-- 상세보기 -->
+	<select id="getDetail" resultType="sns">
+		select * from snsboard
+		where bno = #{bno}
 	</select>
+	
+	<!-- 삭제하기 -->
+	<delete id="delete">
+		delete from snsboard
+		where bno = #{bno}
+	</delete>
 	
 </mapper>
 
