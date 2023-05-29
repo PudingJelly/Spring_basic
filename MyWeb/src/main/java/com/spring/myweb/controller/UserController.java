@@ -18,6 +18,7 @@ import com.spring.myweb.user.service.IUserService;
 import com.spring.myweb.util.MailSenderService;
 import com.spring.myweb.util.PageCreator;
 import com.spring.myweb.util.PageVO;
+import com.spring.myweb.util.kakaoService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -34,6 +35,8 @@ public class UserController {
 	private IFreeBoardService boardService;
 	@Autowired
 	private MailSenderService mailService;
+	@Autowired
+	private kakaoService kakaoService;
 
 	// 회원가입 페이지로 이동
 	@GetMapping("/userJoin")
@@ -72,9 +75,27 @@ public class UserController {
 	
 	// 로그인 페이지로 이동 요청
 	@GetMapping("/userLogin")
-	public void login () {
+	public void login (Model model, HttpSession session) {
+		/* 카카오 URL을 만들어서 userLogin.jsp로 보내야 합니다. */
+		String kakaoAuthUrl = kakaoService.getAutorizationUrl(session);
+		log.info("카카오 로그인 url: {}", kakaoAuthUrl);
+		model.addAttribute("urlKakao", kakaoAuthUrl);		
+	}
+	
+	// 카카오 로그인 성공 시 callback
+	@GetMapping("/kakao_callback")
+	public void callbackKakao(String code, String state, 
+								HttpSession session, Model model) {
+		log.info("로그인성공! callbackKakao 호출!");
+		log.info("인가 코드: {}", code);
+		String accessToken = kakaoService.getAccessToken(session, code, state);
+		log.info("access 토큰값: {}",accessToken);
+		
+		// accessToken을 이용하여 로그인 사용자 정보를 읽어 오자.
+		
 		
 	}
+	
 	
 	// 로그인 요청
 	@PostMapping("/userLogin")
