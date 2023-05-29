@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.spring.myweb.command.KakaoUserVO;
 import com.spring.myweb.command.UserVO;
 import com.spring.myweb.freeboard.service.IFreeBoardService;
 import com.spring.myweb.user.service.IUserService;
@@ -92,8 +93,11 @@ public class UserController {
 		log.info("access 토큰값: {}",accessToken);
 		
 		// accessToken을 이용하여 로그인 사용자 정보를 읽어 오자.
-		kakaoService.getUserProfile(accessToken);
+		KakaoUserVO vo = kakaoService.getUserProfile(accessToken);
 		
+		// 여기까지가 카카오 로그인 api가 제공하는 기능의 끝입니다.
+		// 추가 입력 정보가 필요하다면 추가 입력할 수 있는 페이지로 보내셔서 입력을 더 받아서
+		// 데이터베이스에 데이터를 집어 넣으시면 됩니다.		
 	}
 	
 	
