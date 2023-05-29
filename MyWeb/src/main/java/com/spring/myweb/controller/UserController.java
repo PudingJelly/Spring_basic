@@ -92,7 +92,7 @@ public class UserController {
 		log.info("access 토큰값: {}",accessToken);
 		
 		// accessToken을 이용하여 로그인 사용자 정보를 읽어 오자.
-		
+		kakaoService.getUserProfile(accessToken);
 		
 	}
 	

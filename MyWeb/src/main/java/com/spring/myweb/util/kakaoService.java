@@ -94,6 +94,13 @@ public class kakaoService {
 		}
 		
 	}
+
+	/* Access Token을 이용하여 카카오 사용자 프로필 API 요청 */
+	public void getUserProfile(String accessToken) {
+		
+		
+		
+	}
 	
 
 }
